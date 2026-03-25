@@ -3,19 +3,19 @@ import { Inter, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter'
 });
 
-const spaceGrotesk = Space_Grotesk({ 
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: '--font-space-grotesk'
 });
 
 export const metadata: Metadata = {
-  title: 'Desenvolvedor Backend Júnior | Portfólio',
-  description: 'Portfólio de Desenvolvedor Backend Júnior especializado em Java, Spring Boot, Python e Cloud',
+  title: 'Desenvolvedor Backend | Portfólio',
+  description: 'Portfólio de Desenvolvedor Backend especializado em Java, Spring Boot, Python e Cloud',
   generator: 'v0.app',
   icons: {
     icon: [
