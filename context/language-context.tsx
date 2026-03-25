@@ -55,7 +55,7 @@ const translations = {
     "services.backend": "Backend Development",
     "services.backendDesc": "Construindo APIs robustas e escaláveis com Java, Spring Boot, Cloud e utilizando bancos de dados SQL e NoSQL.",
     "services.devops": "DevOps & CI/CD",
-    "services.devopsDesc": "Automatizando testes, deploys e pipelines de integração contínua utilizando Docker e GitHub Actions.",
+    "services.devopsDesc": "Automatizando testes, deploys e pipelines de integração contínua utilizando Docker e Kubernetes.",
     "services.database": "Database & API Design",
     "services.databaseDesc": "Projetando schemas de banco de dados eficientes, com PostgreSQL e MySQL, APIs RESTful e otimizando queries para performance e escalabilidade.",
 
@@ -157,7 +157,7 @@ const translations = {
     "services.backend": "Backend Development",
     "services.backendDesc": "Building robust and scalable APIs with Java, Spring Boot, Cloud and using both SQL and NoSQL databases.",
     "services.devops": "DevOps & CI/CD",
-    "services.devopsDesc": "Automating tests, deployments and continuous integration pipelines using Docker and GitHub Actions.",
+    "services.devopsDesc": "Automating tests, deployments and continuous integration pipelines using Docker and Kubernetes.",
     "services.database": "Database & API Design",
     "services.databaseDesc": "Designing efficient database schemas with PostgreSQL and MySQL, RESTful APIs and optimizing queries for performance and scalability.",
 

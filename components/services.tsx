@@ -15,21 +15,21 @@ export function Services() {
       icon: Server,
       title: t("services.backend"),
       description: t("services.backendDesc"),
-      tags: ["NODE", "EXPRESS", "NESTJS"],
+      tags: ["Java", "Spring Boot", "Python"],
     },
     {
       number: "02",
       icon: GitBranch,
       title: t("services.devops"),
       description: t("services.devopsDesc"),
-      tags: ["DOCKER", "GITHUB ACTIONS"],
+      tags: ["DOCKER", "Kubernets"],
     },
     {
       number: "03",
       icon: Database,
       title: t("services.database"),
       description: t("services.databaseDesc"),
-      tags: ["REST", "SQL", "NOSQL"],
+      tags: ["PostgreSQL", "MySQL", "NOSQL"],
     },
   ]
 
@@ -39,11 +39,10 @@ export function Services() {
         {/* Section Header */}
         <div
           ref={headerAnim.ref}
-          className={`mb-12 transition-all duration-700 ease-out ${
-            headerAnim.isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-          }`}
+          className={`mb-12 transition-all duration-700 ease-out ${headerAnim.isVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-8"
+            }`}
         >
           {/* Top line with label */}
           <div className="flex items-center justify-between mb-4">
@@ -68,11 +67,10 @@ export function Services() {
         {/* Services Grid */}
         <div
           ref={cardsAnim.ref}
-          className={`grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-700 ease-out delay-200 ${
-            cardsAnim.isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-          }`}
+          className={`grid grid-cols-1 md:grid-cols-3 gap-6 transition-all duration-700 ease-out delay-200 ${cardsAnim.isVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-8"
+            }`}
         >
           {services.map((service, index) => (
             <div
