@@ -43,10 +43,24 @@ const projects = [
       pt: "RESTful API para a criação e gerenciamento de um inventário de produtos e categorias.",
       en: "RESTful API for managing an inventory of products and categories."
     },
-    image: "https://images.unsplash.com/photo-1627719172038-611c725920bc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/programming-Caspar-Camille.jpg",
     tags: ["Java", "Spring Boot", "Spring Data JPA", "Swagger", "MySQL"],
     type: "personal" as const,
     github: "https://github.com/Viinicius-Muller/inventory-stock-manager.git",
+  },
+  {
+    title: {
+      pt: "Pipeline de Dados de Frete",
+      en: "Freight Data Pipeline"
+    },
+    description: {
+      pt: "Automação de processos de criação de data para Excel -> CSV -> Wix Data usando Python. Criado para automatizar tarefas no meu trabalho.",
+      en: "Automation of processes for creating data for Excel -> CSV -> Wix Data using Python. Created to automate tasks in my job."
+    },
+    image: "/python-David-Clode.jpg",
+    tags: ["Python", "Pandas", "OpenPyXL", "Wix Data API"],
+    type: "personal" as const,
+    github: "https://github.com/Viinicius-Muller/freight-data-pipeline"
   },
   {
     title: {
@@ -57,7 +71,7 @@ const projects = [
       pt: "Verificador de CEP que utiliza uma API pública e deserializa JSON em classes, utilizando a biblioteca Gson.",
       en: "Brazilian ZIP code verifier that uses a public API and deserializes JSON into classes using the Gson library."
     },
-    image: "https://images.unsplash.com/photo-1713721010281-b5a32969efcc?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/programming-Fotis-Fotopoulos.jpg",
     tags: ["Java", "Spring Boot", "Gson", "Maven"],
     type: "personal" as const,
     github: "https://github.com/Viinicius-Muller/via-cep.git"
