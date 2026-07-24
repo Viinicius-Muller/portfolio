@@ -1,47 +1,69 @@
-"use client"
+"use client";
 
-import { ExternalLink, Github } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { useLanguage } from "@/context/language-context"
-import { useScrollAnimation, useMultipleScrollAnimations } from "@/hooks/use-scroll-animation"
+import { ExternalLink, Github } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/context/language-context";
+import {
+  useScrollAnimation,
+  useMultipleScrollAnimations,
+} from "@/hooks/use-scroll-animation";
 
 const projects = [
   {
     title: {
       pt: "TransBras",
-      en: "TransBras"
+      en: "TransBras",
     },
     description: {
       pt: "Projeto de website Fullstack. Sistema de comunicações cliente/empresa, informações e disponibilidade de fretes e lances.",
-      en: "Fullstack website project. Client/company communication system, freight information and bidding availability."
+      en: "Fullstack website project. Client/company communication system, freight information and bidding availability.",
     },
     image: "/transbras-sample.png",
-    tags: ["Java", "Spring Boot", "PostgreSQL", "JWT", "Swagger", "Docker", "React", "NestJs", "Monorepo"],
+    tags: [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "JWT",
+      "Swagger",
+      "Docker",
+      "React",
+      "NestJs",
+      "Monorepo",
+    ],
     type: "personal" as const,
     github: "http://github.com/Viinicius-Muller/transbras-portfolio",
   },
   {
     title: {
       pt: "Ambiente JMuller",
-      en: "JMuller Ambient"
+      en: "JMuller Ambient",
     },
     description: {
       pt: "Aplicação mobile sendo desenvolvida para a empresa JMuller em Curitiba, auxiliando alunos e professores a terem aulas e conexões.",
-      en: "Mobile application being developed for JMuller company in Curitiba, helping students and teachers manage classes and connections."
+      en: "Mobile application being developed for JMuller company in Curitiba, helping students and teachers manage classes and connections.",
     },
     image: "/jmuller-sample.png",
-    tags: ["Azure", "Java", "Spring Boot", "JWT", "PostgreSQL", "React Native", "Docker", "Kubernets"],
+    tags: [
+      "Azure",
+      "Java",
+      "Spring Boot",
+      "JWT",
+      "PostgreSQL",
+      "React Native",
+      "Docker",
+      "Kubernets",
+    ],
     type: "freelancer" as const,
   },
   {
     title: {
       pt: "Gerenciamento de Inventário e Estoque",
-      en: "Inventory Stock Manager"
+      en: "Inventory Stock Manager",
     },
     description: {
       pt: "RESTful API para a criação e gerenciamento de um inventário de produtos e categorias.",
-      en: "RESTful API for managing an inventory of products and categories."
+      en: "RESTful API for managing an inventory of products and categories.",
     },
     image: "/programming-Caspar-Camille.jpg",
     tags: ["Java", "Spring Boot", "Spring Data JPA", "Swagger", "MySQL"],
@@ -50,41 +72,82 @@ const projects = [
   },
   {
     title: {
+      pt: "Firebase Storage Spring Handler",
+      en: "Firebase Storage Spring Handler",
+    },
+    description: {
+      pt: "API REST em Spring Boot que envia imagens para o Firebase Cloud Storage e persiste seus metadados no PostgreSQL, permitindo recuperação por nome do arquivo ou id no banco. Inclui validação no servidor (limite de 5MB, detecção real do tipo MIME via Apache Tika) e deploy via Docker.",
+      en: "Spring Boot REST API that uploads images to Firebase Cloud Storage and persists their metadata in PostgreSQL, retrievable by filename or database id. Includes server-side validation (5MB limit, true MIME-type detection via Apache Tika) and Dockerized deployment.",
+    },
+    image: "/boxes.jpg",
+    tags: [
+      "Java 17",
+      "Spring Boot 4",
+      "PostgreSQL",
+      "Firebase Admin SDK",
+      "Apache Tika",
+      "Docker",
+      "Maven",
+    ],
+    type: "personal" as const,
+    github:
+      "https://github.com/Viinicius-Muller/firebase-storage-spring-handler",
+  },
+  {
+    title: {
       pt: "Pipeline de Dados de Frete",
-      en: "Freight Data Pipeline"
+      en: "Freight Data Pipeline",
     },
     description: {
       pt: "Automação de processos de criação de data para Excel -> CSV -> Wix Data usando Python. Criado para automatizar tarefas no meu trabalho.",
-      en: "Automation of processes for creating data for Excel -> CSV -> Wix Data using Python. Created to automate tasks in my job."
+      en: "Automation of processes for creating data for Excel -> CSV -> Wix Data using Python. Created to automate tasks in my job.",
     },
     image: "/python-David-Clode.jpg",
     tags: ["Python", "Pandas", "OpenPyXL", "Wix Data API"],
     type: "personal" as const,
-    github: "https://github.com/Viinicius-Muller/freight-data-pipeline"
+    github: "https://github.com/Viinicius-Muller/freight-data-pipeline",
+  },
+  {
+    title: {
+      pt: "Gestão Animal",
+      en: "Gestão Animal",
+    },
+    description: {
+      pt: "Dashboard fullstack de gestão animal com histórico de peso, log de auditoria, finanças e agendamentos. Backend em Spring Boot e frontend em React/Next.js, implantado na Vercel com Nginx como proxy reverso.",
+      en: "Full-stack animal management dashboard with weight history, audit logging, finances and scheduling. Spring Boot backend and React/Next.js frontend, deployed on Vercel with Nginx as a reverse proxy.",
+    },
+    image: "/ox.jpg",
+    tags: ["Java", "Spring Boot", "Next.js", "React", "Nginx", "Vercel"],
+    type: "personal" as const,
+    demo: "https://gestao-animal-frontend.vercel.app/",
   },
   {
     title: {
       pt: "Via-CEP",
-      en: "Via-CEP"
+      en: "Via-CEP",
     },
     description: {
       pt: "Verificador de CEP que utiliza uma API pública e deserializa JSON em classes, utilizando a biblioteca Gson.",
-      en: "Brazilian ZIP code verifier that uses a public API and deserializes JSON into classes using the Gson library."
+      en: "Brazilian ZIP code verifier that uses a public API and deserializes JSON into classes using the Gson library.",
     },
-    image: "/programming-Fotis-Fotopoulos.jpg",
+    image: "/city.jpg",
     tags: ["Java", "Spring Boot", "Gson", "Maven"],
     type: "personal" as const,
-    github: "https://github.com/Viinicius-Muller/via-cep.git"
+    github: "https://github.com/Viinicius-Muller/via-cep.git",
   },
-]
+];
 
 export function Projects() {
-  const { language, t } = useLanguage()
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>()
-  const { setRef, visibleItems } = useMultipleScrollAnimations(projects.length, {
-    threshold: 0.2,
-    rootMargin: "0px 0px -50px 0px"
-  })
+  const { language, t } = useLanguage();
+  const { ref: headerRef, isVisible: headerVisible } =
+    useScrollAnimation<HTMLDivElement>();
+  const { setRef, visibleItems } = useMultipleScrollAnimations(
+    projects.length,
+    {
+      threshold: 0.2,
+      rootMargin: "0px 0px -50px 0px",
+    },
+  );
 
   return (
     <section id="projects" className="py-20 md:py-32">
@@ -92,29 +155,42 @@ export function Projects() {
         {/* Section Header */}
         <div
           ref={headerRef}
-          className={`mb-12 md:mb-16 transition-all duration-700 ease-out ${headerVisible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-8"
-            }`}
+          className={`mb-12 md:mb-16 transition-all duration-700 ease-out ${
+            headerVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-8"
+          }`}
         >
           <span
-            className={`inline-block px-3 py-1 text-sm text-primary bg-primary/10 rounded-full border border-primary/20 mb-4 transition-all duration-500 ${headerVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
-              }`}
+            className={`inline-block px-3 py-1 text-sm text-primary bg-primary/10 rounded-full border border-primary/20 mb-4 transition-all duration-500 ${
+              headerVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+            }`}
             style={{ transitionDelay: "100ms" }}
           >
             {t("projects.label")}
           </span>
           <h2
-            className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4 transition-all duration-500 ${headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-            style={{ fontFamily: 'var(--font-display)', transitionDelay: "200ms" }}
+            className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4 transition-all duration-500 ${
+              headerVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
+            style={{
+              fontFamily: "var(--font-display)",
+              transitionDelay: "200ms",
+            }}
           >
             {t("projects.title")}{" "}
-            <span className="italic font-normal text-muted-foreground">{t("projects.titleHighlight")}</span>
+            <span className="italic font-normal text-muted-foreground">
+              {t("projects.titleHighlight")}
+            </span>
           </h2>
           <p
-            className={`text-muted-foreground text-lg max-w-2xl transition-all duration-500 ${headerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
+            className={`text-muted-foreground text-lg max-w-2xl transition-all duration-500 ${
+              headerVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
             style={{ transitionDelay: "300ms" }}
           >
             {t("projects.subtitle")}
@@ -127,15 +203,14 @@ export function Projects() {
             <div
               key={index}
               ref={setRef(index)}
-              className={`transition-all duration-700 ease-out ${visibleItems[index]
-                ? "opacity-100 translate-y-0 scale-100"
-                : "opacity-0 translate-y-12 scale-95"
-                }`}
+              className={`transition-all duration-700 ease-out ${
+                visibleItems[index]
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 translate-y-12 scale-95"
+              }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <Card
-                className="group bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 h-full"
-              >
+              <Card className="group bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 h-full">
                 {/* Project Image */}
                 <div className="relative aspect-video overflow-hidden bg-secondary">
                   <img
@@ -147,11 +222,14 @@ export function Projects() {
 
                   {/* Type Badge */}
                   <div className="absolute top-3 left-3">
-                    <span className={`px-2.5 py-1 text-xs font-medium rounded-full border ${project.type === 'freelancer'
-                      ? 'bg-primary/90 text-primary-foreground border-primary'
-                      : 'bg-secondary/90 text-foreground border-border'
-                      }`}>
-                      {project.type === 'freelancer' ? 'Freelance' : 'Personal'}
+                    <span
+                      className={`px-2.5 py-1 text-xs font-medium rounded-full border ${
+                        project.type === "freelancer"
+                          ? "bg-primary/90 text-primary-foreground border-primary"
+                          : "bg-secondary/90 text-foreground border-border"
+                      }`}
+                    >
+                      {project.type === "freelancer" ? "Freelance" : "Personal"}
                     </span>
                   </div>
 
@@ -159,15 +237,30 @@ export function Projects() {
                   {(project.github || project.demo) && (
                     <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                       {project.github && (
-                        <Button size="sm" variant="secondary" asChild className="backdrop-blur-sm">
-                          <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label="Ver código no GitHub">
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          asChild
+                          className="backdrop-blur-sm"
+                        >
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Ver código no GitHub"
+                          >
                             <Github className="h-4 w-4" />
                           </a>
                         </Button>
                       )}
                       {project.demo && (
                         <Button size="sm" asChild className="backdrop-blur-sm">
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer" aria-label="Ver demonstração">
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Ver demonstração"
+                          >
                             <ExternalLink className="h-4 w-4" />
                           </a>
                         </Button>
@@ -205,5 +298,5 @@ export function Projects() {
         </div>
       </div>
     </section>
-  )
+  );
 }
