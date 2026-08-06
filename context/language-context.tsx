@@ -24,6 +24,8 @@ const translations = {
     "hero.viewProjects": "Ver projetos",
     "hero.downloadCV": "Abrir currículo",
     "hero.available": "Disponível para oportunidades",
+    "hero.editor.ready": "Compilado com sucesso",
+    "hero.editor.editing": "editando agora",
 
     // Tech Stack
     "tech.title": "Tecnologias",
@@ -136,6 +138,8 @@ const translations = {
     "hero.viewProjects": "View projects",
     "hero.downloadCV": "Open resume",
     "hero.available": "Available for opportunities",
+    "hero.editor.ready": "Compiled successfully",
+    "hero.editor.editing": "editing now",
 
     // Tech Stack
     "tech.title": "Technologies",

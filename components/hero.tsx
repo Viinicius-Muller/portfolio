@@ -1,35 +1,34 @@
 "use client"
 
-import { ArrowRight, Download, Sparkles } from "lucide-react"
+import { ArrowRight, Download, Sparkles, FileCode2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/context/language-context"
 import { useState, useEffect } from "react"
+
+const STACK = ["Java", "Spring Boot", "Python", "Pandas", "AWS", "Docker", "PostgreSQL"]
 
 export function Hero() {
   const { t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    // Small delay to trigger animation after mount
     const timer = setTimeout(() => setIsVisible(true), 100)
     return () => clearTimeout(timer)
   }, [])
+
+  const reveal = (delayMs: number) =>
+    `transition-all duration-500 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+    }`
 
   return (
     <section id="about" className="min-h-screen flex items-center pt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
-          <div
-            className={`order-2 lg:order-1 transition-all duration-700 ease-out ${isVisible
-                ? "opacity-100 translate-x-0"
-                : "opacity-0 -translate-x-10"
-              }`}
-          >
+          <div className="order-1">
             {/* Badge */}
             <div
-              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-6 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-6 ${reveal(100)}`}
               style={{ transitionDelay: "100ms" }}
             >
               <Sparkles className="h-4 w-4" />
@@ -38,15 +37,13 @@ export function Hero() {
 
             {/* Name */}
             <p
-              className={`text-muted-foreground text-lg mb-2 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
+              className={`text-muted-foreground text-lg mb-2 ${reveal(200)}`}
               style={{ transitionDelay: "200ms" }}
             >
               {t("hero.greeting")}
             </p>
             <h1
-              className={`text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
+              className={`text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4 ${reveal(300)}`}
               style={{ fontFamily: 'var(--font-display)', transitionDelay: "300ms" }}
             >
               André Vinicius Müller
@@ -54,8 +51,7 @@ export function Hero() {
 
             {/* Role */}
             <p
-              className={`text-xl sm:text-2xl text-primary font-medium mb-6 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
+              className={`text-xl sm:text-2xl text-primary font-medium mb-6 ${reveal(400)}`}
               style={{ transitionDelay: "400ms" }}
             >
               {t("hero.role")}
@@ -63,36 +59,14 @@ export function Hero() {
 
             {/* Description */}
             <p
-              className={`text-muted-foreground text-lg leading-relaxed mb-8 max-w-lg transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
+              className={`text-muted-foreground text-lg leading-relaxed mb-8 max-w-lg ${reveal(500)}`}
               style={{ transitionDelay: "500ms" }}
             >
               {t("hero.description")}
             </p>
 
-            {/* Tech Stack Pills */}
-            <div
-              className={`flex flex-wrap gap-2 mb-8 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-              style={{ transitionDelay: "600ms" }}
-            >
-              {["Java", "Spring Boot", "Python", "Pandas", "AWS", "Docker", "PostgreSQL"].map((tech, index) => (
-                <span
-                  key={tech}
-                  className={`px-3 py-1.5 text-sm rounded-md bg-secondary text-secondary-foreground border border-border hover:border-primary/50 hover:bg-secondary/80 transition-all duration-300 cursor-default`}
-                  style={{ transitionDelay: `${700 + index * 50}ms` }}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
             {/* CTAs */}
-            <div
-              className={`flex flex-wrap gap-4 transition-all duration-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                }`}
-              style={{ transitionDelay: "800ms" }}
-            >
+            <div className={`flex flex-wrap gap-4 ${reveal(600)}`} style={{ transitionDelay: "600ms" }}>
               <Button asChild size="lg" className="group">
                 <a href="#projects">
                   {t("hero.viewProjects")}
@@ -108,54 +82,117 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Avatar/Illustration */}
+          {/* Editor */}
           <div
-            className={`order-1 lg:order-2 flex justify-center lg:justify-end transition-all duration-700 ease-out ${isVisible
-                ? "opacity-100 translate-x-0 scale-100"
-                : "opacity-0 translate-x-10 scale-95"
+            className={`order-2 flex justify-center lg:justify-end transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95"
               }`}
-            style={{ transitionDelay: "200ms" }}
+            style={{ transitionDelay: "250ms" }}
           >
-            <div className="relative">
-              {/* Background decoration */}
-              <div className={`absolute -inset-4 bg-primary/10 rounded-full blur-3xl transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
-                }`} />
+            <div className="w-full max-w-lg rounded-xl border border-border bg-card shadow-2xl shadow-black/40 overflow-hidden">
+              {/* Title bar */}
+              <div className="flex items-center gap-2 h-10 px-4 border-b border-border bg-secondary/40">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-500/60" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/60" />
+                <span className="ml-2 text-sm font-mono text-muted-foreground">profile.ts</span>
+              </div>
 
-              {/* Avatar container */}
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-br from-primary/20 to-secondary border-2 border-border overflow-hidden group">
-                {/* Code decoration inside avatar */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className={`text-6xl sm:text-8xl font-bold text-primary/20 transition-all duration-700 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                      }`}
-                    style={{ fontFamily: 'var(--font-display)', transitionDelay: "400ms" }}
+              <div className="flex">
+                {/* File rail */}
+                <nav className="w-28 sm:w-32 shrink-0 border-r border-border py-3 flex flex-col gap-1">
+                  <span
+                    className="mx-1.5 flex items-center gap-2 px-2.5 py-2 rounded-sm bg-secondary text-primary text-xs font-mono font-medium truncate"
+                    style={{ transitionDelay: "700ms" }}
                   >
-                    {"</>"}
-                  </div>
-                </div>
+                    <FileCode2 className="h-4 w-4 shrink-0" />
+                    profile.ts
+                  </span>
+                  <a
+                    href="#projects"
+                    className="mx-1.5 flex items-center gap-2 px-2.5 py-2 rounded-sm text-xs font-mono text-muted-foreground truncate hover:bg-secondary/60 hover:text-foreground transition-colors"
+                  >
+                    <FileCode2 className="h-4 w-4 shrink-0" />
+                    projects.ts
+                  </a>
+                  <a
+                    href="#contact"
+                    className="mx-1.5 flex items-center gap-2 px-2.5 py-2 rounded-sm text-xs font-mono text-muted-foreground truncate hover:bg-secondary/60 hover:text-foreground transition-colors"
+                  >
+                    <FileCode2 className="h-4 w-4 shrink-0" />
+                    contact.ts
+                  </a>
+                </nav>
 
-                {/* Floating code snippets */}
-                <div
-                  className={`absolute top-8 right-4 px-2 py-1 bg-card/80 rounded text-xs text-primary font-mono border border-border transition-all duration-500 hover:scale-105 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
-                    }`}
-                  style={{ transitionDelay: "600ms" }}
-                >
-                  @SpringBoot
+                {/* Code pane */}
+                <div className="flex-1 min-w-0 px-4 py-4 sm:px-5 sm:py-5 font-mono text-xs sm:text-sm leading-7">
+                  {[
+                    <span key="c" className="text-muted-foreground/60 italic">// profile.ts</span>,
+                    <>
+                      <span className="text-muted-foreground">export const</span>{" "}
+                      <span className="text-foreground/90">andre</span>{" "}
+                      <span className="text-muted-foreground">= {"{"}</span>
+                    </>,
+                    <>
+                      {"  "}
+                      <span className="text-foreground/90">name:</span>{" "}
+                      <span className="text-primary">&quot;André Vinicius Müller&quot;</span>
+                      <span className="text-muted-foreground">,</span>
+                    </>,
+                    <>
+                      {"  "}
+                      <span className="text-foreground/90">role:</span>{" "}
+                      <span className="text-primary">&quot;{t("hero.role")}&quot;</span>
+                      <span className="text-muted-foreground">,</span>
+                    </>,
+                    <span key="stack" className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
+                      {"  "}
+                      <span className="text-foreground/90">stack:</span>
+                      <span className="text-muted-foreground">[</span>
+                      {STACK.map((techName, i) => (
+                        <span key={techName}>
+                          <span className="text-primary">&quot;{techName}&quot;</span>
+                          {i < STACK.length - 1 && <span className="text-muted-foreground">,</span>}
+                        </span>
+                      ))}
+                      <span className="text-muted-foreground">],</span>
+                    </span>,
+                    <>
+                      {"  "}
+                      <span className="text-foreground/90">status:</span>{" "}
+                      <span className="text-primary">&quot;available&quot;</span>
+                      <span className="text-muted-foreground">,</span>
+                    </>,
+                    <span className="text-muted-foreground">{"} as const"}</span>,
+                  ].map((line, i) => (
+                    <div
+                      key={i}
+                      className={`flex gap-3 whitespace-pre ${reveal(0)}`}
+                      style={{ transitionDelay: `${750 + i * 70}ms` }}
+                    >
+                      <span className="w-4 shrink-0 text-right text-muted-foreground/40 select-none">{i + 1}</span>
+                      <span className="min-w-0 whitespace-pre-wrap">{line}</span>
+                    </div>
+                  ))}
                 </div>
-                <div
-                  className={`absolute bottom-12 left-4 px-2 py-1 bg-card/80 rounded text-xs text-primary font-mono border border-border transition-all duration-500 hover:scale-105 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                    }`}
-                  style={{ transitionDelay: "700ms" }}
-                >
-                  def main():
-                </div>
-                <div
-                  className={`absolute bottom-24 right-8 px-2 py-1 bg-card/80 rounded text-xs text-primary font-mono border border-border transition-all duration-500 hover:scale-105 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
-                    }`}
-                  style={{ transitionDelay: "800ms" }}
-                >
-                  AWS
-                </div>
+              </div>
+
+              {/* Terminal / status strip */}
+              <div
+                className={`flex items-center justify-between h-10 px-4 border-t border-border bg-secondary/30 font-mono text-xs ${reveal(1300)}`}
+                style={{ transitionDelay: "1300ms" }}
+              >
+                <span className="flex items-center gap-1.5 text-primary">
+                  <span aria-hidden="true">▲</span>
+                  {t("hero.editor.ready")}
+                </span>
+                <span className="flex items-center gap-1.5 text-muted-foreground">
+                  <span className="hidden sm:inline">{t("hero.editor.editing")}</span>
+                  <img
+                    src="/pfp.jpeg"
+                    alt="André Vinicius Müller"
+                    className="h-6 w-6 rounded-full object-cover border border-border"
+                  />
+                </span>
               </div>
             </div>
           </div>
