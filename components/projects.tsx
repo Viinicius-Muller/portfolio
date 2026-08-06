@@ -1,15 +1,17 @@
 "use client";
 
-import { ExternalLink, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { useCallback, useMemo, useState } from "react";
+import { ExternalLink, Github, Maximize2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ProjectWindow, type ProjectData } from "@/components/project-window";
 import { useLanguage } from "@/context/language-context";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   useScrollAnimation,
   useMultipleScrollAnimations,
 } from "@/hooks/use-scroll-animation";
 
-const projects = [
+const projects: ProjectData[] = [
   {
     title: {
       pt: "TransBras",
@@ -19,7 +21,7 @@ const projects = [
       pt: "Projeto de website Fullstack. Sistema de comunicações cliente/empresa, informações e disponibilidade de fretes e lances.",
       en: "Fullstack website project. Client/company communication system, freight information and bidding availability.",
     },
-    image: "/transbras-sample.png",
+    images: ["/transbras-sample.png"],
     tags: [
       "Java",
       "Spring Boot",
@@ -43,7 +45,7 @@ const projects = [
       pt: "Aplicação mobile sendo desenvolvida para a empresa JMuller em Curitiba, auxiliando alunos e professores a terem aulas e conexões.",
       en: "Mobile application being developed for JMuller company in Curitiba, helping students and teachers manage classes and connections.",
     },
-    image: "/jmuller-sample.png",
+    images: ["/jmuller-sample.png"],
     tags: [
       "Azure",
       "Java",
@@ -65,7 +67,7 @@ const projects = [
       pt: "RESTful API para a criação e gerenciamento de um inventário de produtos e categorias.",
       en: "RESTful API for managing an inventory of products and categories.",
     },
-    image: "/programming-Caspar-Camille.jpg",
+    images: ["/programming-Caspar-Camille.jpg"],
     tags: ["Java", "Spring Boot", "Spring Data JPA", "Swagger", "MySQL"],
     type: "personal" as const,
     github: "https://github.com/Viinicius-Muller/inventory-stock-manager.git",
@@ -79,7 +81,10 @@ const projects = [
       pt: "API REST em Spring Boot que envia imagens para o Firebase Cloud Storage e persiste seus metadados no PostgreSQL, permitindo recuperação por nome do arquivo ou id no banco. Inclui validação no servidor (limite de 5MB, detecção real do tipo MIME via Apache Tika) e deploy via Docker.",
       en: "Spring Boot REST API that uploads images to Firebase Cloud Storage and persists their metadata in PostgreSQL, retrievable by filename or database id. Includes server-side validation (5MB limit, true MIME-type detection via Apache Tika) and Dockerized deployment.",
     },
-    image: "/boxes.jpg",
+    images: [
+      "/firebase-storage-spring/intro.png",
+      "/firebase-storage-spring/second.png",
+    ],
     tags: [
       "Java 17",
       "Spring Boot 4",
@@ -102,7 +107,7 @@ const projects = [
       pt: "Automação de processos de criação de data para Excel -> CSV -> Wix Data usando Python. Criado para automatizar tarefas no meu trabalho.",
       en: "Automation of processes for creating data for Excel -> CSV -> Wix Data using Python. Created to automate tasks in my job.",
     },
-    image: "/python-David-Clode.jpg",
+    images: ["/python-David-Clode.jpg"],
     tags: ["Python", "Pandas", "OpenPyXL", "Wix Data API"],
     type: "personal" as const,
     github: "https://github.com/Viinicius-Muller/freight-data-pipeline",
@@ -116,7 +121,7 @@ const projects = [
       pt: "Dashboard fullstack de gestão animal com histórico de peso, log de auditoria, finanças e agendamentos. Backend em Spring Boot e frontend em React/Next.js, implantado na Vercel com Nginx como proxy reverso.",
       en: "Full-stack animal management dashboard with weight history, audit logging, finances and scheduling. Spring Boot backend and React/Next.js frontend, deployed on Vercel with Nginx as a reverse proxy.",
     },
-    image: "/ox.jpg",
+    images: ["/animal-dash/intro.png"],
     tags: ["Java", "Spring Boot", "Next.js", "React", "Nginx", "Vercel"],
     type: "personal" as const,
     demo: "https://gestao-animal-frontend.vercel.app/",
@@ -130,15 +135,47 @@ const projects = [
       pt: "Verificador de CEP que utiliza uma API pública e deserializa JSON em classes, utilizando a biblioteca Gson.",
       en: "Brazilian ZIP code verifier that uses a public API and deserializes JSON into classes using the Gson library.",
     },
-    image: "/city.jpg",
+    images: ["/via-cep-sample.png", "/city.jpg"],
     tags: ["Java", "Spring Boot", "Gson", "Maven"],
     type: "personal" as const,
     github: "https://github.com/Viinicius-Muller/via-cep.git",
   },
+  {
+    title: {
+      pt: "Sistema de GPS estilo Uber",
+      en: "Uber-like GPS System",
+    },
+    description: {
+      pt: "Projeto de estudo em Spring Boot: dispositivos enviam pings de GPS via HTTP, que passam pelo Kafka e são gravados em lote no MongoDB por um consumidor. Permite consultar o histórico de um dispositivo ou buscar quem está próximo de um ponto via índice geoespacial.",
+      en: "A Spring Boot study project: devices send GPS pings over HTTP, which flow through Kafka and are batch-written to MongoDB by a consumer. Supports querying a device's history or finding who's nearby a point via a geospatial index.",
+    },
+    images: [
+      "/uber-kafka-gps/intro.jpg",
+      "/uber-kafka-gps/post.jpg",
+      "/uber-kafka-gps/get.jpg",
+    ],
+    tags: ["Java 17", "Spring Boot 4", "Kafka", "MongoDB", "Docker", "Maven"],
+    type: "personal" as const,
+    github: "https://github.com/Viinicius-Muller/uber-like-gps-system",
+  },
 ];
+
+function getProjectSlug(project: ProjectData): string {
+  if (project.github) {
+    const match = project.github.match(/github\.com\/[^/]+\/([^/.]+)/i);
+    if (match) return match[1];
+  }
+  return project.title.en
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
 
 export function Projects() {
   const { language, t } = useLanguage();
+  const isMobile = useIsMobile();
   const { ref: headerRef, isVisible: headerVisible } =
     useScrollAnimation<HTMLDivElement>();
   const { setRef, visibleItems } = useMultipleScrollAnimations(
@@ -148,6 +185,18 @@ export function Projects() {
       rootMargin: "0px 0px -50px 0px",
     },
   );
+
+  const slugs = useMemo(() => projects.map(getProjectSlug), []);
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleProject = useCallback((index: number) => {
+    setOpenIndex((current) => (current === index ? null : index));
+  }, []);
+
+  const closeProject = useCallback(() => {
+    setOpenIndex(null);
+  }, []);
 
   return (
     <section id="projects" className="py-20 md:py-32">
@@ -195,108 +244,143 @@ export function Projects() {
           >
             {t("projects.subtitle")}
           </p>
+          <p
+            className={`mt-3 font-mono text-xs text-muted-foreground/60 transition-all duration-500 ${
+              headerVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: "400ms" }}
+          >
+            <span className="text-primary/60">{"// "}</span>
+            {t("projects.hint")}
+          </p>
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              ref={setRef(index)}
-              className={`transition-all duration-700 ease-out ${
-                visibleItems[index]
-                  ? "opacity-100 translate-y-0 scale-100"
-                  : "opacity-0 translate-y-12 scale-95"
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <Card className="group bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 h-full">
-                {/* Project Image */}
-                <div className="relative aspect-video overflow-hidden bg-secondary">
-                  <img
-                    src={project.image}
-                    alt={project.title[language]}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
+          {projects.map((project, index) => {
+            const slug = slugs[index];
+            const visibleTags = project.tags.slice(0, 3);
+            const overflowCount = project.tags.length - visibleTags.length;
+            const isOpen = openIndex === index;
 
-                  {/* Type Badge */}
-                  <div className="absolute top-3 left-3">
-                    <span
-                      className={`px-2.5 py-1 text-xs font-medium rounded-full border ${
-                        project.type === "freelancer"
-                          ? "bg-primary/90 text-primary-foreground border-primary"
-                          : "bg-secondary/90 text-foreground border-border"
-                      }`}
-                    >
-                      {project.type === "freelancer" ? "Freelance" : "Personal"}
+            return (
+              <div
+                key={index}
+                ref={setRef(index)}
+                className={`transition-all duration-700 ease-out ${
+                  visibleItems[index]
+                    ? "opacity-100 translate-y-0 scale-100"
+                    : "opacity-0 translate-y-8 scale-95"
+                }`}
+                style={{ transitionDelay: `${(index % 4) * 100}ms` }}
+              >
+                <button
+                  type="button"
+                  onClick={() => toggleProject(index)}
+                  aria-haspopup="dialog"
+                  aria-expanded={isOpen}
+                  aria-label={`${t("projects.openProject")}: ${project.title[language]}`}
+                  className={`group relative flex w-full flex-col overflow-hidden rounded-xl border bg-card text-left transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 ${
+                    isOpen
+                      ? "border-primary/60 ring-1 ring-primary/30"
+                      : "border-border hover:border-primary/50"
+                  }`}
+                >
+                  {/* Path strip */}
+                  <div className="flex h-7 items-center justify-between border-b border-border bg-secondary/40 px-2.5">
+                    <span className="truncate font-mono text-[10px] text-muted-foreground">
+                      ~/{slug}
                     </span>
+                    <Maximize2
+                      className="h-3 w-3 shrink-0 text-muted-foreground/50 transition-colors group-hover:text-primary"
+                      aria-hidden="true"
+                    />
                   </div>
 
-                  {/* Hover Actions */}
-                  {(project.github || project.demo) && (
-                    <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                      {project.github && (
-                        <Button
-                          size="sm"
+                  {/* Image */}
+                  <div className="relative aspect-video overflow-hidden bg-secondary">
+                    <img
+                      src={project.images[0]}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute left-2 top-2">
+                      <Badge
+                        className={`rounded-full ${
+                          project.type === "freelancer"
+                            ? "bg-primary/90 text-primary-foreground border-primary"
+                            : "bg-secondary/90 text-foreground border-border"
+                        }`}
+                      >
+                        {project.type === "freelancer" ? "Freelance" : "Personal"}
+                      </Badge>
+                    </div>
+                    {(project.github || project.demo) && (
+                      <div
+                        className="absolute bottom-2 right-2 flex gap-1.5"
+                        aria-hidden="true"
+                      >
+                        {project.github && (
+                          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-background/70 backdrop-blur-sm">
+                            <Github className="h-3.5 w-3.5 text-foreground/70" />
+                          </span>
+                        )}
+                        {project.demo && (
+                          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-background/70 backdrop-blur-sm">
+                            <ExternalLink className="h-3.5 w-3.5 text-foreground/70" />
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex flex-1 flex-col p-4">
+                    <h3 className="truncate text-base font-semibold text-foreground transition-colors group-hover:text-primary">
+                      {project.title[language]}
+                    </h3>
+                    <div className="mt-2 flex flex-wrap gap-1.5">
+                      {visibleTags.map((tag) => (
+                        <Badge
+                          key={tag}
                           variant="secondary"
-                          asChild
-                          className="backdrop-blur-sm"
+                          className="border-border px-1.5 py-0 text-[10px]"
                         >
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Ver código no GitHub"
-                          >
-                            <Github className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      )}
-                      {project.demo && (
-                        <Button size="sm" asChild className="backdrop-blur-sm">
-                          <a
-                            href={project.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Ver demonstração"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
+                          {tag}
+                        </Badge>
+                      ))}
+                      {overflowCount > 0 && (
+                        <Badge
+                          variant="outline"
+                          className="px-1.5 py-0 text-[10px]"
+                        >
+                          +{overflowCount}
+                        </Badge>
                       )}
                     </div>
-                  )}
-                </div>
-
-                <CardContent className="p-6">
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {project.title[language]}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {project.description[language]}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-1 text-xs rounded bg-secondary text-secondary-foreground border border-border group-hover:border-primary/30 transition-colors"
-                      >
-                        {tag}
-                      </span>
-                    ))}
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
+
+      {openIndex !== null && (
+        <ProjectWindow
+          key={openIndex}
+          project={projects[openIndex]}
+          language={language}
+          t={t}
+          slug={slugs[openIndex]}
+          isMobile={isMobile}
+          onClose={closeProject}
+        />
+      )}
     </section>
   );
 }
