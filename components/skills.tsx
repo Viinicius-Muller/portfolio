@@ -2,7 +2,31 @@
 
 import { useLanguage } from "@/context/language-context"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-import { Code2, Users, Globe } from "lucide-react"
+import {
+  Code2,
+  Users,
+  Globe,
+  Coffee,
+  Leaf,
+  Braces,
+  Atom,
+  FileCode,
+  Webhook,
+  KeyRound,
+  BookOpen,
+  Database,
+  HardDrive,
+  BarChart3,
+  Container,
+  GitBranch,
+  Cloud,
+  Terminal,
+  Lightbulb,
+  MessageCircle,
+  GraduationCap,
+  Clock,
+  Repeat,
+} from "lucide-react"
 
 // Tech Icons as SVG components
 function JavaIcon({ className }: { className?: string }) {
@@ -42,31 +66,51 @@ export function Skills() {
   const softSkillsAnim = useScrollAnimation({ threshold: 0.1 })
   const languagesAnim = useScrollAnimation({ threshold: 0.1 })
 
-  const hardSkills = [
-    { name: "Java" },
-    { name: "Spring Boot" },
-    { name: "Token JWT" },
-    { name: "Swagger UI" },
-    { name: "Javascript & Typescript" },
-    { name: "React" },
-    { name: "Python" },
-    { name: "Pandas" },
-    { name: "REST APIs" },
-    { name: "PostgreSQL" },
-    { name: "MySQL" },
-    { name: "Docker" },
-    { name: "Git & GitHub" },
-    { name: "Microsoft Azure" },
-    { name: "Linux" },
+  const hardSkillCategories = [
+    {
+      label: t("skills.catLanguages"),
+      skills: [
+        { name: "Java", icon: Coffee },
+        { name: "Spring Boot", icon: Leaf },
+        { name: "Javascript & Typescript", icon: Braces },
+        { name: "React", icon: Atom },
+        { name: "Python", icon: FileCode },
+      ],
+    },
+    {
+      label: t("skills.catApi"),
+      skills: [
+        { name: "REST APIs", icon: Webhook },
+        { name: "Token JWT", icon: KeyRound },
+        { name: "Swagger UI", icon: BookOpen },
+      ],
+    },
+    {
+      label: t("skills.catData"),
+      skills: [
+        { name: "PostgreSQL", icon: Database },
+        { name: "MySQL", icon: HardDrive },
+        { name: "Pandas", icon: BarChart3 },
+      ],
+    },
+    {
+      label: t("skills.catDevops"),
+      skills: [
+        { name: "Docker", icon: Container },
+        { name: "Git & GitHub", icon: GitBranch },
+        { name: "Microsoft Azure", icon: Cloud },
+        { name: "Linux", icon: Terminal },
+      ],
+    },
   ]
 
   const softSkills = [
-    { name: t("skills.softSkill1") },
-    { name: t("skills.softSkill2") },
-    { name: t("skills.softSkill3") },
-    { name: t("skills.softSkill4") },
-    { name: t("skills.softSkill5") },
-    { name: t("skills.softSkill6") },
+    { name: t("skills.softSkill1"), icon: Lightbulb },
+    { name: t("skills.softSkill2"), icon: Users },
+    { name: t("skills.softSkill3"), icon: MessageCircle },
+    { name: t("skills.softSkill4"), icon: GraduationCap },
+    { name: t("skills.softSkill5"), icon: Clock },
+    { name: t("skills.softSkill6"), icon: Repeat },
   ]
 
   const languages = [
@@ -134,29 +178,45 @@ export function Skills() {
             : "opacity-0 translate-y-8"
             }`}
         >
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-8">
             <Code2 className="h-5 w-5 text-primary" />
             <h3 className="text-xl font-semibold text-foreground">{t("skills.hardSkills")}</h3>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {hardSkills.map((skill, index) => (
-              <div
-                key={skill.name}
-                className="bg-card border border-border rounded-xl p-4 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 group"
-                style={{
-                  transitionDelay: hardSkillsAnim.isVisible ? `${index * 50}ms` : '0ms',
-                  opacity: hardSkillsAnim.isVisible ? 1 : 0,
-                  transform: hardSkillsAnim.isVisible ? 'translateY(0)' : 'translateY(10px)'
-                }}
-              >
-                <div className="flex items-center justify-center h-full">
-                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors text-center">
-                    {skill.name}
+          {(() => {
+            let flatIndex = -1
+            return hardSkillCategories.map((category) => (
+              <div key={category.label} className="mb-8 last:mb-0">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-mono text-primary tracking-widest uppercase whitespace-nowrap">
+                    SYS://{category.label}
                   </span>
+                  <div className="h-px flex-1 bg-border" />
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                  {category.skills.map((skill) => {
+                    flatIndex += 1
+                    const index = flatIndex
+                    return (
+                      <div
+                        key={skill.name}
+                        className="group flex items-center gap-2.5 bg-card border border-border rounded-lg px-4 py-3 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+                        style={{
+                          transitionDelay: hardSkillsAnim.isVisible ? `${index * 40}ms` : '0ms',
+                          opacity: hardSkillsAnim.isVisible ? 1 : 0,
+                          transform: hardSkillsAnim.isVisible ? 'translateY(0)' : 'translateY(10px)'
+                        }}
+                      >
+                        <skill.icon className="h-4 w-4 text-primary/70 group-hover:text-primary transition-colors shrink-0" />
+                        <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                          {skill.name}
+                        </span>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
-            ))}
-          </div>
+            ))
+          })()}
         </div>
 
         {/* Soft Skills */}
@@ -175,17 +235,17 @@ export function Skills() {
             {softSkills.map((skill, index) => (
               <div
                 key={skill.name}
-                className="bg-card border border-border rounded-xl p-4 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 flex items-center gap-3"
+                className="group bg-card border border-border rounded-xl p-4 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 flex items-center gap-3"
                 style={{
                   transitionDelay: softSkillsAnim.isVisible ? `${index * 50}ms` : '0ms',
                   opacity: softSkillsAnim.isVisible ? 1 : 0,
                   transform: softSkillsAnim.isVisible ? 'translateY(0)' : 'translateY(10px)'
                 }}
               >
-                <div className="p-2 bg-primary/10 rounded-lg">
-                  <span className="w-4 h-4 block bg-primary rounded-full" />
+                <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/15 transition-colors shrink-0">
+                  <skill.icon className="w-4 h-4 text-primary" />
                 </div>
-                <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{skill.name}</span>
               </div>
             ))}
           </div>
