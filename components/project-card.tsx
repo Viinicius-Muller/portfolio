@@ -50,7 +50,7 @@ export function ProjectCard({ project, index, className }: ProjectCardProps) {
             {project.type === "company" ? t("projects.company") : project.type === "freelancer" ? "Freelance" : "Personal"}
           </PillBadge>
           {project.featured && (
-            <PillBadge tone="glass" className="border-accent/40 px-2.5 py-1 text-accent">
+            <PillBadge tone="glass" className="hidden border-accent/40 px-2.5 py-1 text-accent min-[400px]:inline-flex">
               <Star className="size-3 fill-current" />
               {t("projects.featured")}
             </PillBadge>
@@ -68,7 +68,7 @@ export function ProjectCard({ project, index, className }: ProjectCardProps) {
       </div>
 
       <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-        <h3 className="text-balance font-display text-xl font-light leading-tight text-foreground [overflow-wrap:anywhere] sm:text-2xl">{title}</h3>
+        <h3 className="text-balance font-display text-lg font-light leading-tight text-foreground [overflow-wrap:anywhere] sm:text-2xl">{title}</h3>
         <div className="mt-3 flex flex-wrap gap-1.5">
           {visibleTags.map((tag) => (
             <PillBadge key={tag} tone="muted" className="px-2 py-0.5 text-[10px]">

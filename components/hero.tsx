@@ -27,9 +27,9 @@ export function Hero() {
   const { t, language } = useLanguage()
 
   return (
-    <section id="about" className="relative flex min-h-screen flex-col pt-24">
-      <div className="mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-12 sm:px-6 md:py-16">
-        <div className="grid w-full items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+    <section id="about" className="relative flex flex-col pt-20 lg:min-h-screen lg:pt-24">
+      <div className="mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-8 sm:px-6 md:py-16">
+        <div className="grid w-full items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
           {/* Copy */}
           <div>
             <motion.p {...rise(0)} className="mb-3 text-lg text-muted-foreground">
@@ -38,26 +38,26 @@ export function Hero() {
 
             <motion.h1
               {...rise(1)}
-              className="font-display text-5xl font-light leading-[1.05] text-foreground sm:text-6xl lg:text-7xl"
+              className="font-display text-[2.5rem] font-light leading-[1.05] text-foreground sm:text-6xl lg:text-7xl"
             >
               André Vinicius <span className="whitespace-nowrap">Müller</span>
             </motion.h1>
 
             <motion.p
               {...rise(2)}
-              className="mt-4 font-display text-2xl font-light text-accent sm:text-3xl"
+              className="mt-4 font-display text-xl font-light text-accent sm:text-3xl"
             >
               {t("hero.role")}
             </motion.p>
 
             <motion.p
               {...rise(3)}
-              className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground"
+              className="mt-5 max-w-lg text-base leading-relaxed sm:mt-6 sm:text-lg text-muted-foreground"
             >
               {t("hero.description")}
             </motion.p>
 
-            <motion.div {...rise(4)} className="mt-9 flex flex-wrap gap-3">
+            <motion.div {...rise(4)} className="mt-7 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap sm:mt-9">
               <GlowButton asChild size="lg">
                 <a href={resumeHref(language)} target="_blank" rel="noopener noreferrer">
                   <Download className="size-4" />
@@ -80,7 +80,7 @@ export function Hero() {
             transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
             className="relative flex flex-col items-center lg:items-end"
           >
-            <div className="animate-float w-full max-w-sm">
+            <div className="animate-float w-full max-w-[16rem] sm:max-w-sm">
               <GlassCard padding="sm" className="rounded-[2rem] shadow-[0_24px_48px_-24px_var(--glow-primary)]">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
                   <img
@@ -101,7 +101,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 1.2, ease: EASE }}
-              className="relative z-10 -mt-6 w-64 self-center sm:mr-4 sm:self-end"
+              className="relative z-10 -mt-6 w-60 self-center sm:w-64 sm:mr-4 sm:self-end"
             >
               <GlassCard padding="md" className="bg-primary/25">
                 <p className="font-display text-base font-light leading-snug text-foreground">

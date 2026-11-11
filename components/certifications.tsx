@@ -23,11 +23,11 @@ export function Certifications() {
   const { t } = useLanguage()
 
   return (
-    <section id="certifications" className="section-band relative overflow-hidden px-4 py-24 sm:px-6 md:py-32">
+    <section id="certifications" className="section-band relative overflow-hidden px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       {/* Soft AWS-tinted bloom behind the cards */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 size-[44rem] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute left-1/2 top-1/2 size-[28rem] -translate-x-1/2 sm:size-[44rem] -translate-y-1/2"
         style={{
           backgroundImage: `radial-gradient(closest-side, rgb(255 153 0 / 0.1), transparent)`,
         }}
@@ -51,7 +51,7 @@ export function Certifications() {
                 aria-label={`${t("certifications.issuer")} ${t(`certifications.${cert.id}.name`)} — ${t("certifications.view")}`}
                 padding="lg"
                 interactive
-                className="group flex h-full flex-col gap-6 overflow-hidden"
+                className="group flex h-full flex-col gap-5 overflow-hidden p-5 sm:gap-6 sm:p-8"
               >
                 {/* Official badge */}
                 <div className="flex items-start justify-between gap-4">
@@ -60,7 +60,7 @@ export function Certifications() {
                   </PillBadge>
                 </div>
 
-                <div className="relative mx-auto aspect-square w-full max-w-[16rem]">
+                <div className="relative mx-auto aspect-square w-full max-w-[11rem] sm:max-w-[16rem]">
                   <span
                     aria-hidden="true"
                     className="absolute -inset-6 rounded-full"
@@ -88,7 +88,7 @@ export function Certifications() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-white/10 pt-5">
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-white/10 pt-4 sm:pt-5">
                   <span className="flex items-center gap-2 font-mono text-sm text-muted-foreground">
                     <Calendar className="size-4" />
                     {t(`certifications.${cert.id}.date`)}

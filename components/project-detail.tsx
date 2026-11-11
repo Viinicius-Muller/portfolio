@@ -140,7 +140,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
                 </div>
 
                 {hasMultiple && (
-                  <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-5 sm:gap-3">
+                  <div className="mt-3 grid grid-cols-5 gap-1.5 sm:gap-3">
                     {images.map((_, i) => (
                       <button
                         key={i}
@@ -225,7 +225,7 @@ export function ProjectDetail({ slug }: { slug: string }) {
               ].map(({ label, p }) => (
                 <div key={label}>
                   <p className="mb-3 text-sm text-muted-foreground">{label}</p>
-                  <ProjectCard project={p} index={projects.indexOf(p)} className="aspect-[16/9]" />
+                  <ProjectCard project={p} index={projects.indexOf(p)} className="aspect-[4/5] min-[480px]:aspect-[4/3] sm:aspect-[16/9]" />
                 </div>
               ))}
             </div>

@@ -17,16 +17,16 @@ export function Footer() {
   return (
     <footer className="relative border-t border-white/[0.06] bg-black/60">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal duration={1.2} className="overflow-hidden border-b border-white/[0.06] py-12 md:py-16">
+        <Reveal duration={1.2} className="overflow-hidden border-b border-white/[0.06] py-8 md:py-16">
           <p
             aria-hidden="true"
-            className="text-center font-display text-5xl font-light tracking-tight text-foreground/10 sm:text-7xl lg:text-9xl"
+            className="whitespace-nowrap text-center font-display text-[2.5rem] font-light tracking-tight text-foreground/10 sm:text-7xl lg:text-9xl"
           >
             André Müller
           </p>
         </Reveal>
 
-        <div className="flex flex-col items-center justify-between gap-5 py-6 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-4 py-6 text-center sm:flex-row sm:text-left">
           <p className="text-sm text-muted-foreground">
             {year} André Vinicius Müller. {t("footer.rights")}
           </p>

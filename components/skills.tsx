@@ -83,7 +83,7 @@ export function Skills() {
         <Reveal className="mb-16">
           <SubHeading>{t("skills.hardSkills")}</SubHeading>
 
-          <div role="tablist" aria-label={t("skills.hardSkills")} className="mb-6 flex flex-wrap gap-2">
+          <div role="tablist" aria-label={t("skills.hardSkills")} className="scrollbar-custom -mx-4 mb-6 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
             {filters.map((f) => (
               <button
                 key={f.id}
@@ -91,7 +91,7 @@ export function Skills() {
                 aria-selected={filter === f.id}
                 onClick={() => setFilter(f.id)}
                 className={cn(
-                  "relative rounded-full px-4 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-ring",
+                  "relative shrink-0 rounded-full px-4 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-ring",
                   filter === f.id ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -107,7 +107,7 @@ export function Skills() {
             ))}
           </div>
 
-          <motion.ul layout className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+          <motion.ul layout className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 md:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {visibleSkills.map((skill) => (
                 <motion.li
@@ -120,13 +120,13 @@ export function Skills() {
                 >
                   <GlassCard
                     padding="none"
-                    className="group flex items-center gap-3 rounded-2xl px-4 py-3.5 hover:-translate-y-0.5"
+                    className="group flex items-center gap-2.5 rounded-2xl px-3 py-3 hover:-translate-y-0.5 sm:gap-3 sm:px-4 sm:py-3.5"
                   >
                     <TechIcon
                       name={skill.icon}
                       className="size-5 shrink-0 text-accent/80 transition-colors group-hover:text-accent"
                     />
-                    <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                    <span className="min-w-0 text-[13px] font-medium text-foreground [overflow-wrap:anywhere] sm:text-sm">{skill.name}</span>
                   </GlassCard>
                 </motion.li>
               ))}
@@ -139,14 +139,14 @@ export function Skills() {
           <Reveal>
             <SubHeading>{t("skills.softSkillsTitle")}</SubHeading>
           </Reveal>
-          <Stagger stagger={0.06} className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          <Stagger stagger={0.06} className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3">
             {softSkills.map((skill) => (
               <StaggerItem key={skill.name}>
-                <GlassCard padding="none" className="group flex items-center gap-3 rounded-2xl p-4">
-                  <span className="rounded-xl bg-accent/10 p-2 transition-colors group-hover:bg-accent/20">
+                <GlassCard padding="none" className="group flex items-center gap-2.5 rounded-2xl p-3 sm:gap-3 sm:p-4">
+                  <span className="shrink-0 rounded-xl bg-accent/10 p-1.5 transition-colors group-hover:bg-accent/20 sm:p-2">
                     <skill.icon className="size-4 text-accent" />
                   </span>
-                  <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                  <span className="min-w-0 text-[13px] font-medium text-foreground [overflow-wrap:anywhere] sm:text-sm">{skill.name}</span>
                 </GlassCard>
               </StaggerItem>
             ))}

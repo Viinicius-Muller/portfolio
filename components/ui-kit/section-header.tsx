@@ -13,12 +13,12 @@ interface SectionHeaderProps {
 /** Shared section heading: large light title on the left, [ TAG ] on the right. */
 export function SectionHeader({ title, tag, subtitle, className }: SectionHeaderProps) {
   return (
-    <Reveal className={cn("mb-10 md:mb-14", className)}>
-      <div className="flex items-start justify-between gap-6">
-        <h2 className="font-display text-3xl font-light leading-tight text-foreground sm:text-4xl md:text-5xl">
+    <Reveal className={cn("mb-8 md:mb-14", className)}>
+      <div className="flex flex-col-reverse items-start gap-2 sm:flex-row sm:justify-between sm:gap-6">
+        <h2 className="font-display text-[1.75rem] font-light leading-tight text-foreground [overflow-wrap:anywhere] sm:text-4xl md:text-5xl">
           {title}
         </h2>
-        <span className="mt-2 shrink-0 font-mono text-xs tracking-widest text-accent">
+        <span className="shrink-0 font-mono text-[11px] tracking-widest text-accent sm:mt-2 sm:text-xs">
           [ {tag.toUpperCase()} ]
         </span>
       </div>

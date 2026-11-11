@@ -120,7 +120,7 @@ export function Header() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.98 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="glass mx-auto mt-2 max-w-6xl rounded-3xl p-3 md:hidden"
+              className="glass mx-auto mt-2 max-w-6xl max-h-[calc(100dvh-6rem)] overflow-y-auto rounded-3xl p-3 md:hidden"
               aria-label="Mobile"
             >
               <div className="flex flex-col">

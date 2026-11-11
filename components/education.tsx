@@ -33,7 +33,7 @@ export function Education() {
   const learnings = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => t(`education.learning${n}`))
 
   return (
-    <section id="education" className="px-4 py-24 sm:px-6 md:py-32">
+    <section id="education" className="px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
         <SectionHeader title={t("education.title")} tag={t("education.status")} />
 

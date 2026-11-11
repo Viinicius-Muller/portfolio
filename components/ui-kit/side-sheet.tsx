@@ -35,13 +35,13 @@ export function SideSheet({ isOpen, onClose, title, footer, children }: SideShee
             </DialogPrimitive.Overlay>
             <DialogPrimitive.Content asChild forceMount aria-describedby={undefined}>
               <motion.div
-                className="glass fixed right-0 top-0 z-[70] flex h-full w-full max-w-md flex-col rounded-l-3xl border-r-0 bg-black/70 outline-none"
+                className="glass fixed right-0 top-0 z-[70] flex h-dvh w-full max-w-md flex-col rounded-l-3xl border-r-0 bg-black/70 outline-none"
                 initial={{ x: "100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", stiffness: 320, damping: 36 }}
               >
-                <div className="flex items-center justify-between border-b border-white/10 p-6">
+                <div className="flex items-center justify-between border-b border-white/10 p-4 sm:p-6">
                   <DialogPrimitive.Title className="font-display text-2xl font-light text-foreground">
                     {title}
                   </DialogPrimitive.Title>
@@ -53,9 +53,9 @@ export function SideSheet({ isOpen, onClose, title, footer, children }: SideShee
                   </DialogPrimitive.Close>
                 </div>
 
-                <div className="scrollbar-custom flex-1 overflow-y-auto p-6">{children}</div>
+                <div className="scrollbar-custom flex-1 overflow-y-auto p-4 sm:p-6">{children}</div>
 
-                {footer && <div className="border-t border-white/10 p-6">{footer}</div>}
+                {footer && <div className="border-t border-white/10 p-4 sm:p-6">{footer}</div>}
               </motion.div>
             </DialogPrimitive.Content>
           </DialogPrimitive.Portal>
