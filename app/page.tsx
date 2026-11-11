@@ -4,6 +4,7 @@ import { Services } from "@/components/services"
 import { Skills } from "@/components/skills"
 import { Projects } from "@/components/projects"
 import { Education } from "@/components/education"
+import { Certifications } from "@/components/certifications"
 import { Contact } from "@/components/contact"
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <Skills />
       <Projects />
       <Education />
+      <Certifications />
       <Contact />
     </SiteShell>
   )

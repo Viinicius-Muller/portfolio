@@ -30,7 +30,7 @@ export function Services() {
   ]
 
   return (
-    <section id="services" className="px-4 py-24 sm:px-6 md:py-32">
+    <section id="services" className="section-band px-4 py-24 sm:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
         <SectionHeader title={t("services.heading")} tag={t("services.title")} />
 

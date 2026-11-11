@@ -33,7 +33,7 @@ export function Projects() {
 
 
   return (
-    <section id="projects" className="px-4 py-24 sm:px-6 md:py-32">
+    <section id="projects" className="section-band px-4 py-24 sm:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
         <SectionHeader
           title={

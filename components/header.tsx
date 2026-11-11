@@ -13,7 +13,7 @@ import { ContactMenu } from "@/components/contact-menu"
 import { GlowButton } from "@/components/ui-kit"
 import { cn } from "@/lib/utils"
 
-const SECTION_IDS = ["about", "services", "skills", "projects", "education", "contact"] as const
+const SECTION_IDS = ["about", "services", "skills", "projects", "education", "certifications", "contact"] as const
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

@@ -30,12 +30,12 @@ export function Education() {
   const { t } = useLanguage()
   const progress = useProgramProgress()
 
-  const learnings = [1, 2, 3, 4, 5, 6].map((n) => t(`education.learning${n}`))
+  const learnings = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => t(`education.learning${n}`))
 
   return (
     <section id="education" className="px-4 py-24 sm:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
-        <SectionHeader title={t("education.title").charAt(0) + t("education.title").slice(1).toLowerCase()} tag={t("education.status")} />
+        <SectionHeader title={t("education.title")} tag={t("education.status")} />
 
         <GlassCard padding="lg" className="rounded-3xl">
           <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">

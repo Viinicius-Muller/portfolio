@@ -1,7 +1,9 @@
 import type { ComponentType } from "react"
 import {
+  Archive,
   Atom,
   BarChart3,
+  BrainCircuit,
   BookOpen,
   Braces,
   Cloud,
@@ -13,6 +15,7 @@ import {
   HardDrive,
   KeyRound,
   Leaf,
+  Server,
   Terminal,
   Webhook,
 } from "lucide-react"
@@ -40,6 +43,10 @@ export const TECH_ICONS = {
   docker: Container,
   git: GitBranch,
   azure: Cloud,
+  aws: Cloud,
+  s3: Archive,
+  ec2: Server,
+  awsai: BrainCircuit,
   linux: Terminal,
   coffee: Coffee,
   leaf: Leaf,

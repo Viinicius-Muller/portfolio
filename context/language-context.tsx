@@ -70,7 +70,7 @@ const translations = {
     "skills.langIntermediate": "Intermediário",
 
     // Services
-    "services.title": "SERVICES",
+    "services.title": "SERVIÇOS",
     "services.heading": "O que eu construo, de ponta a ponta",
     "services.backend": "Backend Development",
     "services.backendDesc": "Construindo APIs robustas e escaláveis com Java, Spring Boot, Cloud e utilizando bancos de dados SQL e NoSQL.",
@@ -80,8 +80,8 @@ const translations = {
     "services.databaseDesc": "Projetando schemas de banco de dados eficientes, com PostgreSQL e MySQL, APIs RESTful e otimizando queries para performance e escalabilidade.",
 
     // Education
-    "education.title": "EDUCATION",
-    "education.status": "IN PROGRESS",
+    "education.title": "Educação",
+    "education.status": "EM ANDAMENTO",
     "education.degree": "Análise e Desenvolvimento de Sistemas",
     "education.university": "Pontifícia Universidade Católica do Paraná (PUCPR)",
     "education.inProgress": "Em andamento",
@@ -93,6 +93,22 @@ const translations = {
     "education.learning4": "Banco de Dados Relacionais e NoSQL",
     "education.learning5": "Metodologias Ágeis (Scrum, Kanban)",
     "education.learning6": "Versionamento e CI/CD",
+    "education.learning7": "Computação em Nuvem AWS (S3, EC2)",
+    "education.learning8": "Serviços de IA da AWS",
+
+    // Certifications
+    "certifications.title": "Certificados",
+    "certifications.tag": "AWS",
+    "certifications.subtitle": "Certificações oficiais da AWS que validam meus conhecimentos em nuvem e inteligência artificial.",
+    "certifications.issuer": "AWS Certified",
+    "certifications.verified": "Verificado no Credly",
+    "certifications.view": "Ver credencial",
+    "certifications.cloud.name": "Cloud Practitioner",
+    "certifications.cloud.date": "Out 2026",
+    "certifications.cloud.desc": "Fundamentos de nuvem AWS: serviços principais, segurança, arquitetura, preços e suporte.",
+    "certifications.ai.name": "AI Practitioner",
+    "certifications.ai.date": "Set 2026",
+    "certifications.ai.desc": "Fundamentos de IA, machine learning e IA generativa, e como aplicá-los com serviços da AWS.",
 
     // Projects
     "projects.label": "Projetos",
@@ -228,6 +244,22 @@ const translations = {
     "education.learning4": "Relational and NoSQL Databases",
     "education.learning5": "Agile Methodologies (Scrum, Kanban)",
     "education.learning6": "Version Control and CI/CD",
+    "education.learning7": "AWS Cloud Computing (S3, EC2)",
+    "education.learning8": "AWS AI Services",
+
+    // Certifications
+    "certifications.title": "Certifications",
+    "certifications.tag": "AWS",
+    "certifications.subtitle": "Official AWS certifications validating my knowledge of cloud and artificial intelligence.",
+    "certifications.issuer": "AWS Certified",
+    "certifications.verified": "Verified on Credly",
+    "certifications.view": "View credential",
+    "certifications.cloud.name": "Cloud Practitioner",
+    "certifications.cloud.date": "Oct 2026",
+    "certifications.cloud.desc": "AWS Cloud fundamentals: core services, security, architecture, pricing and support.",
+    "certifications.ai.name": "AI Practitioner",
+    "certifications.ai.date": "Sep 2026",
+    "certifications.ai.desc": "Foundations of AI, machine learning and generative AI, and how to apply them with AWS services.",
 
     // Projects
     "projects.label": "Projects",
