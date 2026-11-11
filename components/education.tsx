@@ -1,128 +1,111 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { BookOpen, Calendar, GraduationCap } from "lucide-react"
 import { useLanguage } from "@/context/language-context"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-import { GraduationCap, Calendar, BookOpen } from "lucide-react"
+import {
+  GlassCard,
+  LiveDot,
+  PillBadge,
+  SectionHeader,
+  Stagger,
+  StaggerItem,
+} from "@/components/ui-kit"
+
+const START = new Date(2025, 0, 1).getTime()
+const END = new Date(2027, 5, 30).getTime()
+
+/** Real elapsed share of the programme (jan/2025 to jun/2027), 0–100. */
+function useProgramProgress() {
+  const [pct, setPct] = useState(0)
+  useEffect(() => {
+    const raw = ((Date.now() - START) / (END - START)) * 100
+    setPct(Math.min(100, Math.max(0, Math.round(raw))))
+  }, [])
+  return pct
+}
 
 export function Education() {
   const { t } = useLanguage()
-  const headerAnim = useScrollAnimation({ threshold: 0.1 })
-  const contentAnim = useScrollAnimation({ threshold: 0.1 })
+  const progress = useProgramProgress()
 
-  const learnings = [
-    t("education.learning1"),
-    t("education.learning2"),
-    t("education.learning3"),
-    t("education.learning4"),
-    t("education.learning5"),
-    t("education.learning6"),
-  ]
+  const learnings = [1, 2, 3, 4, 5, 6].map((n) => t(`education.learning${n}`))
 
   return (
-    <section id="education" className="py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div
-          ref={headerAnim.ref}
-          className={`mb-12 transition-all duration-700 ease-out ${
-            headerAnim.isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-          }`}
-        >
-          {/* Top line with label */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-4">
-              <span className="text-xs font-mono text-muted-foreground tracking-widest uppercase">
-                SYS://EDUCATION
+    <section id="education" className="px-4 py-24 sm:px-6 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeader title={t("education.title").charAt(0) + t("education.title").slice(1).toLowerCase()} tag={t("education.status")} />
+
+        <GlassCard padding="lg" className="rounded-3xl">
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div className="flex items-start gap-4">
+              <span className="rounded-2xl bg-accent/10 p-3.5 ring-1 ring-accent/20">
+                <GraduationCap className="size-6 text-accent" />
               </span>
-              <div className="h-px w-32 md:w-64 bg-border" />
+              <div>
+                <h3 className="font-display text-xl font-light text-foreground md:text-2xl">
+                  {t("education.degree")}
+                </h3>
+                <p className="mt-1 text-accent">{t("education.university")}</p>
+              </div>
             </div>
-            <span className="text-xs font-mono text-muted-foreground">
-              {t("education.status")}
-            </span>
+
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Calendar className="size-4" />
+              <span className="font-mono text-sm">jan/2025 - jun/2027</span>
+            </div>
           </div>
 
-          {/* Title */}
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            {t("education.title")}
-          </h2>
-          <div className="h-1 w-16 bg-primary mt-2" />
-        </div>
-
-        {/* Education Card */}
-        <div
-          ref={contentAnim.ref}
-          className={`transition-all duration-700 ease-out delay-200 ${
-            contentAnim.isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8"
-          }`}
-        >
-          <div className="bg-card border border-border rounded-lg p-6 md:p-8">
-            {/* Header row */}
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <GraduationCap className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground">
-                    {t("education.degree")}
-                  </h3>
-                  <p className="text-primary font-medium mt-1">
-                    {t("education.university")}
-                  </p>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Calendar className="h-4 w-4" />
-                <span className="text-sm font-mono">jan/2025 - jun/2027</span>
-              </div>
-            </div>
-
-            {/* Status badge */}
-            <div className="mb-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-                </span>
+          {/* Timeline progress: elapsed share of the programme */}
+          <div className="mb-8">
+            <div className="mb-3 flex items-center justify-between">
+              <PillBadge tone="blue" icon={<LiveDot />}>
                 {t("education.inProgress")}
-              </span>
+              </PillBadge>
+              <span className="font-mono text-xs text-muted-foreground">{progress}%</span>
+            </div>
+            <div
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={progress}
+              className="h-1.5 overflow-hidden rounded-full bg-white/10"
+            >
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-primary to-accent shadow-[0_0_12px_var(--glow-accent)]"
+                initial={{ width: 0 }}
+                whileInView={{ width: `${progress}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
+          </div>
+
+          <p className="mb-8 max-w-3xl leading-relaxed text-muted-foreground">{t("education.description")}</p>
+
+          <div className="border-t border-white/10 pt-6">
+            <div className="mb-5 flex items-center gap-2">
+              <BookOpen className="size-4 text-accent" />
+              <h4 className="font-mono text-xs uppercase tracking-widest text-foreground">
+                {t("education.learningsTitle")}
+              </h4>
             </div>
 
-            {/* Description */}
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              {t("education.description")}
-            </p>
-
-            {/* Learnings */}
-            <div className="border-t border-border pt-6">
-              <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="h-4 w-4 text-primary" />
-                <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-                  {t("education.learningsTitle")}
-                </h4>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {learnings.map((learning, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-3 p-3 bg-secondary/50 rounded-lg border border-border"
-                  >
-                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-primary/10 text-primary text-xs font-mono rounded">
-                      {String(index + 1).padStart(2, '0')}
+            <Stagger stagger={0.06} className="grid gap-3 md:grid-cols-2">
+              {learnings.map((learning, i) => (
+                <StaggerItem key={learning}>
+                  <div className="flex items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-3.5 transition-colors hover:border-accent/30 hover:bg-white/[0.05]">
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-accent/10 font-mono text-xs text-accent">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-sm text-foreground">{learning}</span>
                   </div>
-                ))}
-              </div>
-            </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
           </div>
-        </div>
+        </GlassCard>
       </div>
     </section>
   )

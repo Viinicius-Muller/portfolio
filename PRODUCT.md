@@ -29,7 +29,7 @@ Most candidates at this career stage can only point to coursework or tutorial-cl
 
 - Built with Next.js (App Router), React 19, TypeScript, Tailwind CSS v4, and shadcn/Radix UI primitives.
 - Content (bio, project descriptions, nav labels, etc.) is centralized in `context/language-context.tsx` as a `t(key)` translation dictionary for `pt` and `en` — new copy must be added to both locales there, not hardcoded per-component.
-- Project data lives in `components/projects.tsx` as a typed array (title/description per locale, tags, type, optional `github`/`demo` links) — this is the source of truth for what's been shipped and must not be fabricated or embellished beyond what's documented per project.
+- Project data lives in `data/projects.ts` as a typed array (title/description per locale, tags, type, optional `github`/`demo` links) — this is the source of truth for what's been shipped and must not be fabricated or embellished beyond what's documented per project.
 - Analytics via `@vercel/analytics`; deploy target is implicitly Vercel (matches the Gestão Animal project's own deploy story).
 - Contact channels are real and fixed: email zandreviniciusmuller@gmail.com, phone +55 (47) 98873-1818, location Rio Negrinho, SC – Brasil, plus LinkedIn/GitHub/Instagram — do not alter or invent additional channels.
 
@@ -42,7 +42,7 @@ Most candidates at this career stage can only point to coursework or tutorial-cl
 
 ## Evidence on Hand
 
-- Seven real projects with descriptions, tags, and (where applicable) GitHub links or a live demo URL — see `components/projects.tsx` for the current authoritative list. No testimonials, case studies, employer logos, or press exist; future work must not invent any.
+- Six real projects with descriptions, tags, and (where applicable) GitHub links or a live demo URL — see `data/projects.ts` for the current authoritative list. No testimonials, case studies, employer logos, or press exist; future work must not invent any.
 - One in-progress freelance engagement (JMuller, Curitiba) with no public repo — do not add a fabricated one.
 - Formal education is real but incomplete (graduates 2027) — do not present it as completed.
 - No metrics/analytics numbers (visitor counts, hire outcomes) exist to cite.

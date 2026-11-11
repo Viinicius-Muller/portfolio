@@ -1,203 +1,145 @@
 "use client"
 
-import { ArrowRight, Download, Sparkles, FileCode2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { motion } from "framer-motion"
+import { Download } from "lucide-react"
 import { useLanguage } from "@/context/language-context"
-import { useState, useEffect } from "react"
+import { stack } from "@/data/skills"
+import { projects } from "@/data/projects"
+import { resumeHref } from "@/lib/resume"
+import {
+  CountUp,
+  GlassCard,
+  GlowButton,
+  Marquee,
+  TechIcon,
+} from "@/components/ui-kit"
 
-const STACK = ["Java", "Spring Boot", "Python", "Pandas", "AWS", "Docker", "PostgreSQL"]
+const EASE = [0.16, 1, 0.3, 1] as const
+
+/** Entrance helper: fade + rise, staggered by `i`. */
+const rise = (i: number) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.9, delay: 0.15 + i * 0.1, ease: EASE },
+})
 
 export function Hero() {
-  const { t } = useLanguage()
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const reveal = (delayMs: number) =>
-    `transition-all duration-500 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-    }`
+  const { t, language } = useLanguage()
 
   return (
-    <section id="about" className="min-h-screen flex items-center pt-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Content */}
-          <div className="order-1">
-            {/* Badge */}
-            <div
-              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm mb-6 ${reveal(100)}`}
-              style={{ transitionDelay: "100ms" }}
-            >
-              <Sparkles className="h-4 w-4" />
-              <span>{t("hero.available")}</span>
-            </div>
-
-            {/* Name */}
-            <p
-              className={`text-muted-foreground text-lg mb-2 ${reveal(200)}`}
-              style={{ transitionDelay: "200ms" }}
-            >
+    <section id="about" className="relative flex min-h-screen flex-col pt-24">
+      <div className="mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-12 sm:px-6 md:py-16">
+        <div className="grid w-full items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+          {/* Copy */}
+          <div>
+            <motion.p {...rise(0)} className="mb-3 text-lg text-muted-foreground">
               {t("hero.greeting")}
-            </p>
-            <h1
-              className={`text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-4 ${reveal(300)}`}
-              style={{ fontFamily: 'var(--font-display)', transitionDelay: "300ms" }}
-            >
-              André Vinicius Müller
-            </h1>
+            </motion.p>
 
-            {/* Role */}
-            <p
-              className={`text-xl sm:text-2xl text-primary font-medium mb-6 ${reveal(400)}`}
-              style={{ transitionDelay: "400ms" }}
+            <motion.h1
+              {...rise(1)}
+              className="font-display text-5xl font-light leading-[1.05] text-foreground sm:text-6xl lg:text-7xl"
+            >
+              André Vinicius <span className="whitespace-nowrap">Müller</span>
+            </motion.h1>
+
+            <motion.p
+              {...rise(2)}
+              className="mt-4 font-display text-2xl font-light text-accent sm:text-3xl"
             >
               {t("hero.role")}
-            </p>
+            </motion.p>
 
-            {/* Description */}
-            <p
-              className={`text-muted-foreground text-lg leading-relaxed mb-8 max-w-lg ${reveal(500)}`}
-              style={{ transitionDelay: "500ms" }}
+            <motion.p
+              {...rise(3)}
+              className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground"
             >
               {t("hero.description")}
-            </p>
+            </motion.p>
 
-            {/* CTAs */}
-            <div className={`flex flex-wrap gap-4 ${reveal(600)}`} style={{ transitionDelay: "600ms" }}>
-              <Button asChild size="lg" className="group">
-                <a href="#projects">
-                  {t("hero.viewProjects")}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
-                  <Download className="mr-2 h-4 w-4" />
+            <motion.div {...rise(4)} className="mt-9 flex flex-wrap gap-3">
+              <GlowButton asChild size="lg">
+                <a href={resumeHref(language)} target="_blank" rel="noopener noreferrer">
+                  <Download className="size-4" />
                   {t("hero.downloadCV")}
                 </a>
-              </Button>
-            </div>
+              </GlowButton>
+              <GlowButton asChild variant="ghost" size="lg">
+                <a href="#projects">
+                  {t("hero.viewProjects")}
+                  <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </a>
+              </GlowButton>
+            </motion.div>
           </div>
 
-          {/* Editor */}
-          <div
-            className={`order-2 flex justify-center lg:justify-end transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-95"
-              }`}
-            style={{ transitionDelay: "250ms" }}
+          {/* Profile card: photo + real figures */}
+          <motion.div
+            initial={{ opacity: 0, y: 40, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1.1, delay: 0.35, ease: EASE }}
+            className="relative flex flex-col items-center lg:items-end"
           >
-            <div className="w-full max-w-lg rounded-xl border border-border bg-card shadow-2xl shadow-black/40 overflow-hidden">
-              {/* Title bar */}
-              <div className="flex items-center gap-2 h-10 px-4 border-b border-border bg-secondary/40">
-                <span className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
-                <span className="h-2.5 w-2.5 rounded-full bg-amber-500/60" />
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/60" />
-                <span className="ml-2 text-sm font-mono text-muted-foreground">profile.ts</span>
-              </div>
-
-              <div className="flex">
-                {/* File rail */}
-                <nav className="w-28 sm:w-32 shrink-0 border-r border-border py-3 flex flex-col gap-1">
-                  <span
-                    className="mx-1.5 flex items-center gap-2 px-2.5 py-2 rounded-sm bg-secondary text-primary text-xs font-mono font-medium truncate"
-                    style={{ transitionDelay: "700ms" }}
-                  >
-                    <FileCode2 className="h-4 w-4 shrink-0" />
-                    profile.ts
-                  </span>
-                  <a
-                    href="#projects"
-                    className="mx-1.5 flex items-center gap-2 px-2.5 py-2 rounded-sm text-xs font-mono text-muted-foreground truncate hover:bg-secondary/60 hover:text-foreground transition-colors"
-                  >
-                    <FileCode2 className="h-4 w-4 shrink-0" />
-                    projects.ts
-                  </a>
-                  <a
-                    href="#contact"
-                    className="mx-1.5 flex items-center gap-2 px-2.5 py-2 rounded-sm text-xs font-mono text-muted-foreground truncate hover:bg-secondary/60 hover:text-foreground transition-colors"
-                  >
-                    <FileCode2 className="h-4 w-4 shrink-0" />
-                    contact.ts
-                  </a>
-                </nav>
-
-                {/* Code pane */}
-                <div className="flex-1 min-w-0 px-4 py-4 sm:px-5 sm:py-5 font-mono text-xs sm:text-sm leading-7">
-                  {[
-                    <span key="c" className="text-muted-foreground/60 italic">// profile.ts</span>,
-                    <>
-                      <span className="text-muted-foreground">export const</span>{" "}
-                      <span className="text-foreground/90">andre</span>{" "}
-                      <span className="text-muted-foreground">= {"{"}</span>
-                    </>,
-                    <>
-                      {"  "}
-                      <span className="text-foreground/90">name:</span>{" "}
-                      <span className="text-primary">&quot;André Vinicius Müller&quot;</span>
-                      <span className="text-muted-foreground">,</span>
-                    </>,
-                    <>
-                      {"  "}
-                      <span className="text-foreground/90">role:</span>{" "}
-                      <span className="text-primary">&quot;{t("hero.role")}&quot;</span>
-                      <span className="text-muted-foreground">,</span>
-                    </>,
-                    <span key="stack" className="flex flex-wrap items-baseline gap-x-1 gap-y-0.5">
-                      {"  "}
-                      <span className="text-foreground/90">stack:</span>
-                      <span className="text-muted-foreground">[</span>
-                      {STACK.map((techName, i) => (
-                        <span key={techName}>
-                          <span className="text-primary">&quot;{techName}&quot;</span>
-                          {i < STACK.length - 1 && <span className="text-muted-foreground">,</span>}
-                        </span>
-                      ))}
-                      <span className="text-muted-foreground">],</span>
-                    </span>,
-                    <>
-                      {"  "}
-                      <span className="text-foreground/90">status:</span>{" "}
-                      <span className="text-primary">&quot;available&quot;</span>
-                      <span className="text-muted-foreground">,</span>
-                    </>,
-                    <span className="text-muted-foreground">{"} as const"}</span>,
-                  ].map((line, i) => (
-                    <div
-                      key={i}
-                      className={`flex gap-3 whitespace-pre ${reveal(0)}`}
-                      style={{ transitionDelay: `${750 + i * 70}ms` }}
-                    >
-                      <span className="w-4 shrink-0 text-right text-muted-foreground/40 select-none">{i + 1}</span>
-                      <span className="min-w-0 whitespace-pre-wrap">{line}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Terminal / status strip */}
-              <div
-                className={`flex items-center justify-between h-10 px-4 border-t border-border bg-secondary/30 font-mono text-xs ${reveal(1300)}`}
-                style={{ transitionDelay: "1300ms" }}
-              >
-                <span className="flex items-center gap-1.5 text-primary">
-                  <span aria-hidden="true">▲</span>
-                  {t("hero.editor.ready")}
-                </span>
-                <span className="flex items-center gap-1.5 text-muted-foreground">
-                  <span className="hidden sm:inline">{t("hero.editor.editing")}</span>
+            <div className="animate-float w-full max-w-sm">
+              <GlassCard padding="sm" className="rounded-[2rem] shadow-[0_24px_48px_-24px_var(--glow-primary)]">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
                   <img
                     src="/pfp.jpeg"
                     alt="André Vinicius Müller"
-                    className="h-6 w-6 rounded-full object-cover border border-border"
+                    className="size-full object-cover"
                   />
-                </span>
-              </div>
+                  <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute inset-x-4 bottom-4">
+                    <span className="font-display text-lg font-light text-foreground">{t("hero.role")}</span>
+                  </div>
+                </div>
+              </GlassCard>
             </div>
-          </div>
+
+            {/* Floating stat card (real figures only) */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 1.2, ease: EASE }}
+              className="relative z-10 -mt-6 w-64 self-center sm:mr-4 sm:self-end"
+            >
+              <GlassCard padding="md" className="bg-primary/25">
+                <p className="font-display text-base font-light leading-snug text-foreground">
+                  {t("hero.statTagline")}
+                </p>
+                <div className="mt-4 flex gap-6">
+                  <div>
+                    <CountUp to={projects.length} className="font-display text-2xl font-light text-foreground" />
+                    <p className="text-[11px] text-muted-foreground">{t("hero.statProjects")}</p>
+                  </div>
+                  <div>
+                    <CountUp to={3} className="font-display text-2xl font-light text-foreground" />
+                    <p className="text-[11px] text-muted-foreground">{t("hero.statLanguages")}</p>
+                  </div>
+                </div>
+              </GlassCard>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Real-stack marquee, in place of a customer-logo row */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.2 }}
+        className="border-y border-white/[0.06] bg-black/50 py-6"
+      >
+        <p className="sr-only">{t("tech.subtitle")}</p>
+        <Marquee duration={45}>
+          {stack.map((s) => (
+            <span key={s.name} className="flex items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground">
+              <TechIcon name={s.icon} className="size-5" />
+              <span className="font-display text-base font-light whitespace-nowrap">{s.name}</span>
+            </span>
+          ))}
+        </Marquee>
+      </motion.div>
     </section>
   )
 }
